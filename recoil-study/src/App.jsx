@@ -1,35 +1,33 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import "./App.css";
+import { TodoItem } from "./component/TodoItem";
+import { useRecoilState } from "recoil";
+import { todoListState } from "@/recoil/atom";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [todoList, setTodoList] = useRecoilState(todoListState);
 
+  let id = 0;
+  function getId() {
+    return id++;
+  }
+  const addItem = () => {
+    setTodoList((oldTodoList) => [
+      ...oldTodoList,
+      {
+        text: "asd",
+        id: getId(),
+      },
+    ]);
+  };
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <button onClick={addItem}>add Item</button>
+      {todoList.map((todoItem) => (
+        <TodoItem key={todoItem.id} item={todoItem} />
+      ))}
+      {/* <TodoItemCreator /> */}
     </>
-  )
+  );
 }
 
-export default App
+export default App;
