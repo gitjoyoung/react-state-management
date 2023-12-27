@@ -2,26 +2,16 @@ import "./App.css";
 import { TodoItem } from "./component/TodoItem";
 import { useRecoilState } from "recoil";
 import { todoListState } from "@/recoil/atom";
+import TodoItemCreator from "./component/TodoItemCreator";
 
 function App() {
-  const [todoList, setTodoList] = useRecoilState(todoListState);
+  // 리코일 스테이트
+  const todoList = useRecoilState(todoListState);
 
-  let id = 0;
-  function getId() {
-    return id++;
-  }
-  const addItem = () => {
-    setTodoList((oldTodoList) => [
-      ...oldTodoList,
-      {
-        text: "asd",
-        id: getId(),
-      },
-    ]);
-  };
   return (
     <>
-      <button onClick={addItem}>add Item</button>
+      <p>asdkas</p>
+      <TodoItemCreator />
       {todoList.map((todoItem) => (
         <TodoItem key={todoItem.id} item={todoItem} />
       ))}
